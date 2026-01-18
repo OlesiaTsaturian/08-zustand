@@ -13,6 +13,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import Loader from '@/components/Loader/Loader';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 import NoteForm from '@/components/NoteForm/NoteForm';
+import Link from 'next/link';
 
 type NotesClientProps = {
   tag?: string;
@@ -70,9 +71,9 @@ export default function NotesClient({ tag }: NotesClientProps) {
               onPageChange={setPage}
             />
           )}
-          <button className={css.button} onClick={openModal}>
+          <Link className={css.button} href="/notes/action/create">
             Create note +
-          </button>
+          </Link>
           {stateModal && (
             <Modal onClose={closeModal}>
               <NoteForm onClose={closeModal} />

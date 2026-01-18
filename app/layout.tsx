@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HoteHub',
+    title: 'NoteHub',
     description:
       'Here you can find notes about everything and create your own one',
     images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],

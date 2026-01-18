@@ -74,11 +74,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
           <Link className={css.button} href="/notes/action/create">
             Create note +
           </Link>
-          {stateModal && (
-            <Modal onClose={closeModal}>
-              <NoteForm onClose={closeModal} />
-            </Modal>
-          )}
         </header>
 
         {!isError && !isLoading && notes.length > 0 && (

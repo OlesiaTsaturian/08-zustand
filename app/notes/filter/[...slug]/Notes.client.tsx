@@ -8,11 +8,9 @@ import { Toaster } from 'react-hot-toast';
 import { fetchNotes } from '../../../../lib/api';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteList from '@/components/NoteList/NoteList';
-import Modal from '@/components/Modal/Modal';
 import Pagination from '@/components/Pagination/Pagination';
 import Loader from '@/components/Loader/Loader';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
-import NoteForm from '@/components/NoteForm/NoteForm';
 import Link from 'next/link';
 
 type NotesClientProps = {
@@ -23,7 +21,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [queryDebounce] = useDebounce(search.trim(), 700);
-  const [stateModal, setStateModal] = useState(false);
   const normalizedTag = tag === 'all' ? undefined : tag;
 
   const { data, isLoading, isError } = useQuery({

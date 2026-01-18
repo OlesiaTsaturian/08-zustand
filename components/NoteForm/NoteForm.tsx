@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import toast, { Toaster } from 'react-hot-toast';
 import { createNote, type CreateParams } from '../../lib/api';
 import { useRouter } from 'next/navigation';
-import { useNoteDraftStore } from '@/lib/stores/noteStore';
+import { useNoteDraftStore } from '@/lib/store/noteStore';
 
 type NoteFormProps = {
   onClose?: () => void;

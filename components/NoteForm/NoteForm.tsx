@@ -41,13 +41,15 @@ export default function NoteForm({ onClose }: NoteFormProps) {
 
   const createNoteMutation = useMutation({
     mutationFn: (newNote: CreateParams) => createNote(newNote),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notes'] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['notes'] });
+      await queryClient.refetchQueries({ queryKey: ['notes'], type: 'active' });
 
       toast.success('Note added successfully!', { duration: 7000 });
 
       clearDraft();
-
+      //!
+      router.refresh();
       close();
     },
     onError: () => {

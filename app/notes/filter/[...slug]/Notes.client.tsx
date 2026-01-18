@@ -4,7 +4,6 @@ import { useState } from 'react';
 import css from './NotesPage.module.css';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useDebounce, useDebouncedCallback } from 'use-debounce';
-import { Toaster } from 'react-hot-toast';
 import { fetchNotes } from '../../../../lib/api';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteList from '@/components/NoteList/NoteList';
@@ -44,22 +43,11 @@ export default function NotesClient({ tag }: NotesClientProps) {
     setPage(1);
   }, 500);
 
-  // const openModal = () => {
-  //   setStateModal(true);
-  // };
-  // const closeModal = () => {
-  //   setStateModal(false);
-  // };
-
   return (
     <>
       <div className={css.app}>
-        <Toaster />
         <header className={css.toolbar}>
           <SearchBox searchNote={search} onSearch={handleSearch} />
-
-          {isLoading && <Loader />}
-          {isError && <ErrorMessage />}
 
           {totalPages > 1 && (
             <Pagination
@@ -73,6 +61,8 @@ export default function NotesClient({ tag }: NotesClientProps) {
           </Link>
         </header>
 
+        {isLoading && <Loader />}
+        {isError && <ErrorMessage />}
         {!isError && !isLoading && notes.length > 0 && (
           <NoteList notes={notes} />
         )}

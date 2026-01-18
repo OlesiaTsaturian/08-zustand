@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: { default: 'All notes', template: '%s | All notes' },
+  title: { default: 'All notes', template: '%s | NoteHub' },
   description:
-    'Here you can finde notes about everyting and create your own one',
+    'Here you can find notes about everything and create your own one',
 };
 
 interface Props {

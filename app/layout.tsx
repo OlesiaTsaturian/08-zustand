@@ -15,11 +15,11 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: 'NoteHub',
   description:
-    'Here you can finde notes about everyting and create your own one',
+    'Here you can find notes about everything and create your own one',
   openGraph: {
     title: 'NoteHub',
     description:
-      'Here you can finde notes about everyting and create your own one',
+      'Here you can find notes about everything and create your own one',
     url: 'https://notehub.app',
     siteName: 'NoteHub',
     images: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
         width: 1200,
         height: 630,
-        alt: 'NoteHube image',
+        alt: 'NoteHub image',
       },
     ],
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'HoteHub',
     description:
-      'Here you can finde notes about everyting and create your own one',
+      'Here you can find notes about everything and create your own one',
     images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
   },
 };
@@ -52,8 +52,10 @@ export default function RootLayout({
       <body className={roboto.variable}>
         <TanStackProvider>
           <Header />
-          {children}
-          {modal}
+          <main>
+            {children}
+            {modal}
+          </main>
           <Footer />
           <div id="modal-root"></div>
         </TanStackProvider>

@@ -8,7 +8,11 @@ import { createNote, type CreateParams } from '../../lib/api';
 import { useRouter } from 'next/navigation';
 import { useNoteDraftStore } from '@/lib/stores/noteStore';
 
-export default function NoteForm() {
+type NoteFormProps = {
+  onClose?: () => void;
+};
+
+export default function NoteForm({ onClose }: NoteFormProps) {
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -30,6 +34,11 @@ export default function NoteForm() {
       .required('Please select a tag'),
   });
 
+  const close = () => {
+    if (onClose) onClose();
+    else router.back();
+  };
+
   const createNoteMutation = useMutation({
     mutationFn: (newNote: CreateParams) => createNote(newNote),
     onSuccess: () => {
@@ -39,7 +48,7 @@ export default function NoteForm() {
 
       clearDraft();
 
-      router.back();
+      close();
     },
     onError: () => {
       toast.error('Failed to add note. Please try again.', { duration: 7000 });
@@ -47,7 +56,7 @@ export default function NoteForm() {
   });
 
   const handleClick = () => {
-    router.back();
+    close();
   };
 
   const handleChange = (
@@ -153,101 +162,3 @@ export default function NoteForm() {
     </>
   );
 }
-// const queryClient = useQueryClient();
-// const router = useRouter();
-// const { draft, setDraft, clearDraft } = useNoteDraftStore();
-
-// const handleChange = (
-//   event: React.ChangeEvent<
-//     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-//   >,
-// ) => {
-//   setDraft({
-//     ...draft,
-//     [event.target.name]: event.target.value,
-//   });
-// };
-// const { mutate } = useMutation({
-//   mutationFn: createNote,
-//   // 5. При успішному створенні нотатки очищуємо чернетку
-//   onSuccess: () => {
-//     clearDraft();
-//     router.push('/notes/filter/all');
-//   },
-// });
-
-// const handleSubmit = (formData: FormData) => {
-//   const values = Object.fromEntries(formData) as NewNoteData;
-//   mutate(values);
-// };
-
-// const handleCancel = () => router.push('/notes/filter/all');
-
-// const noteMutation = useMutation({
-//   mutationFn: (newNote: CreateParams) => createNote(newNote),
-//   onSuccess: () => {
-//     queryClient.invalidateQueries({ queryKey: ['notes'] });
-//     onClose();
-//     toast.success('Note added successfully!');
-//   },
-//   onError: () => {
-//     toast.error('Failed to add note');
-//   },
-// });
-// const formValues = (
-//   values: CreateParams,
-//   actions: FormikHelpers<CreateParams>,
-// ) => {
-//   const valuesTrimmer = {
-//     tag: values.tag,
-//     content: values.content.trim(),
-//     title: values.title.trim(),
-//   };
-
-//   noteMutation.mutate(valuesTrimmer);
-
-//   actions.resetForm();
-// };
-
-//   return (
-//     <>
-//       <Toaster position="top-right" />
-//       <form className={css.form}>
-//         <div className={css.formGroup}>
-//           <label htmlFor="title">Title</label>
-//           <input id="title" type="text" name="title" className={css.input} />
-//         </div>
-
-//         <div className={css.formGroup}>
-//           <label htmlFor="content">Content</label>
-//           <input
-//             id="content"
-//             type="text"
-//             name="content"
-//             className={css.textarea}
-//           />
-//         </div>
-
-//         <div className={css.formGroup}>
-//           <label htmlFor="tag">Tag</label>
-//           <select id="tag" name="tag" className={css.select}>
-//             <option value="Todo">Todo</option>
-//             <option value="Work">Work</option>
-//             <option value="Personal">Personal</option>
-//             <option value="Meeting">Meeting</option>
-//             <option value="Shopping">Shopping</option>
-//           </select>
-//         </div>
-
-//         <div className={css.actions}>
-//           <button type="button" className={css.cancelButton} onClick={onClose}>
-//             Cancel
-//           </button>
-//           <button type="submit" className={css.submitButton}>
-//             Create note
-//           </button>
-//         </div>
-//       </form>
-//     </>
-//   );
-// }

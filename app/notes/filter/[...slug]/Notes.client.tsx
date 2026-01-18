@@ -44,12 +44,12 @@ export default function NotesClient({ tag }: NotesClientProps) {
     setPage(1);
   }, 500);
 
-  const openModal = () => {
-    setStateModal(true);
-  };
-  const closeModal = () => {
-    setStateModal(false);
-  };
+  // const openModal = () => {
+  //   setStateModal(true);
+  // };
+  // const closeModal = () => {
+  //   setStateModal(false);
+  // };
 
   return (
     <>
